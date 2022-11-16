@@ -11,11 +11,23 @@ describe("getPosts", () => {
     });
   });
 
-  test("returns the posts", async () => {
+  it("returns an array", async () => {
     const posts = await getPosts();
 
-    expect(posts[0].slug).toBe("first-post");
-    expect(posts[0].title).toBe("First Post");
-    expect(posts[0].body).toMatch("Lorem ipsum dolor sit amet");
+    expect(Array.isArray(posts)).toBe(true);
+  });
+
+  it("returns of collection of posts", async () => {
+    const posts = await getPosts();
+
+    expect(
+      posts.every((post) => {
+        if (post.slug && post.title) {
+          return true;
+        } else {
+          return false;
+        }
+      })
+    );
   });
 });
